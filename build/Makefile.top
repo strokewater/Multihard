@@ -1,0 +1,43 @@
+include Makefile.config
+
+all: build-kernel build-daemons build-init build-loader
+	sudo mkdir -p ${ROOTFS_IMG_MOUNT_DIR} ; \
+	sudo kpartx -av rootfs.img ; \
+	sudo mount /dev/mapper/$(shell sudo kpartx -l rootfs.img | grep -Eo "loop[[:digit:]]p[[:digit:]]") ${ROOTFS_IMG_MOUNT_DIR} ; \
+	sudo cp -f kernel ${ROOTFS_IMG_MOUNT_DIR}/boot ; \
+	sudo cp -f daemons/disk ${ROOTFS_IMG_MOUNT_DIR}/usr/sbin/daemons ; \
+	sudo cp -f init/init ${ROOTFS_IMG_MOUNT_DIR}/usr/sbin ; \
+	sudo cp -f loader/loader ${ROOTFS_IMG_MOUNT_DIR}/boot ; \
+	sudo umount ${ROOTFS_IMG_MOUNT_DIR} ;\
+	sudo kpartx -d rootfs.img
+
+clean-all: clean-loader clean-kernel clean-init clean-daemons
+
+clean: clean-kernel 
+
+build-loader:
+	make -C loader
+build-kernel:
+	make -f Makefile.main all-target
+build-init:
+	make -C init
+build-daemons:
+	make -C daemons
+
+clean-loader:
+	make -C loader clean
+clean-kernel:
+	make -f Makefile.main clean
+	make -f Makefile.main clean-target
+clean-init:
+	make -C init clean
+clean-daemons:
+	make -C daemons clean
+
+
+debug:
+	bochs -q
+gdebug:
+	bochsd -q -f bochsrc.gdb
+qemu:
+	qemu-system-i386 -hda rootfs.img -m 32

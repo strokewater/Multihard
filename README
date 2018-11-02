@@ -1,0 +1,14 @@
+Multihard is a operating system kernel like linux 0.12
+Now it can run bash
+
+First you need to edit config.sh, fill the variable.
+before compile it, you need to run some script
+
+1. init_make.sh: build make file for auto compile
+2. init_rootfs.sh: build root filesystem used for running Multihard, finally get image file rootfs.img
+3. init_software.sh: install software(bash, binutils and gcc) on rootfs, need software.img, you need to build it yourself. as for how to port these software to multihard, refer to build/INSTALL_SOFTWARE. this script will copy software file on software.img to rootfs (NOT INCLUDE /USR/SRC and /OPT).
+
+after executing these script, you can test it, use make, then it will compile all source file and copy execute file including kernel to rootfs. then you can run:
+bochs: direct running bochs 
+make gdebug: debug kernel, you can use gdb to remote debug it, remote debug address is localhost:1234
+make qemu: direct running qemu (not debug)

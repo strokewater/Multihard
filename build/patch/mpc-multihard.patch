@@ -1,0 +1,12 @@
+diff -Naur mpc-1.1.0/config.sub "/run/media/administrator/U\346\267\261\345\272\246U\347\233\230/src/mpc-1.1.0/config.sub"
+--- mpc-1.1.0/config.sub	2016-01-13 01:30:16.000000000 +0800
++++ "/run/media/administrator/U\346\267\261\345\272\246U\347\233\230/src/mpc-1.1.0/config.sub"	2018-02-04 14:32:46.338552000 +0800
+@@ -1393,7 +1393,7 @@
+ 	      | -os2* | -vos* | -palmos* | -uclinux* | -nucleus* \
+ 	      | -morphos* | -superux* | -rtmk* | -rtmk-nova* | -windiss* \
+ 	      | -powermax* | -dnix* | -nx6 | -nx7 | -sei* | -dragonfly* \
+-	      | -skyos* | -haiku* | -rdos* | -toppers* | -drops* | -es* | -tirtos*)
++	      | -skyos* | -haiku* | -rdos* | -toppers* | -drops* | -es* | -tirtos* | -multihard*)
+ 	# Remember, each alternative MUST END IN *, to match a version number.
+ 		;;
+ 	-qnx*)

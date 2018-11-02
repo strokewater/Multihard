@@ -1,0 +1,12 @@
+diff -Naur gmp-6.1.2/configfsf.sub "/run/media/administrator/U\346\267\261\345\272\246U\347\233\230/src/gmp-6.1.2/configfsf.sub"
+--- gmp-6.1.2/configfsf.sub	2016-12-16 23:45:27.000000000 +0800
++++ "/run/media/administrator/U\346\267\261\345\272\246U\347\233\230/src/gmp-6.1.2/configfsf.sub"	2018-02-04 14:24:46.342492000 +0800
+@@ -1399,7 +1399,7 @@
+ 	      | -os2* | -vos* | -palmos* | -uclinux* | -nucleus* \
+ 	      | -morphos* | -superux* | -rtmk* | -rtmk-nova* | -windiss* \
+ 	      | -powermax* | -dnix* | -nx6 | -nx7 | -sei* | -dragonfly* \
+-	      | -skyos* | -haiku* | -rdos* | -toppers* | -drops* | -es* | -tirtos*)
++	      | -skyos* | -haiku* | -rdos* | -toppers* | -drops* | -es* | -tirtos* | -multihard*)
+ 	# Remember, each alternative MUST END IN *, to match a version number.
+ 		;;
+ 	-qnx*)

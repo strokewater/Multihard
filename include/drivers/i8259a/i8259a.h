@@ -1,0 +1,37 @@
+#ifndef CHIPSET_8259A
+#define CHIPSET_8259A
+
+#include "types.h"
+
+#define IRQ_MASTER_MASK_TIMER		1
+#define IRQ_MASTER_MASK_KEYBOARD	2
+#define IRQ_MASTER_MASK_SLAVE		4
+#define IRQ_MASTER_MASK_SERI_S1		8
+#define IRQ_MASTER_MASK_SERI_S2		16
+#define IRQ_MASTER_MASK_PARA_P2		32
+#define IRQ_MASTER_MASK_FLOPPY		64
+#define IRQ_MASTER_MASK_PARA_P1		128
+
+#define IRQ_SLAVE_MASK_REAL_CLK		256
+#define IRQ_SLAVE_INTO_AH			512
+#define IRQ_SLAVE_RESERVED1			1024
+#define IRQ_SLAVE_RESERVED2			2048
+#define IRQ_SLAVE_PS2_MOUSE			4096
+#define IRQ_SLAVE_MATH				8192
+#define IRQ_SLAVE_ATA_PRIMARY		16384
+#define IRQ_SLAVE_ATA_SECONDARY		32768
+	
+#define INT_NO_IRQ_TIMER			0x20
+#define INT_NO_IRQ_KEYBOARD			0x21
+#define INT_NO_IRQ_S2				0x23
+#define INT_NO_IRQ_S1				0x24
+#define INT_NO_IRQ_REAL_CLOCK		0x28
+#define INT_NO_IRQ_ATA_PRIMARY		0x2e
+#define INT_NO_IRQ_ATA_SECONDARY	0x2f
+
+
+void EnableIRQ(int mask);
+void DisableIRQ(int mask);
+void Init8259A();
+
+#endif

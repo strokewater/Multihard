@@ -1,0 +1,8 @@
+all-target: create-objs-pool all
+	make -f Makefile.project
+create-objs-pool:
+	rm -rf .objpools.txt
+	touch .objpools.txt
+clean-target:
+	rm -rf kernel
+include Makefile.sub

@@ -1,0 +1,32 @@
+# compile generate file
+*.o
+*.obj
+kernel
+daemons/disk
+init/init
+loader/loader
+
+# debug generate file
+bochs.out
+kernel.asm.out
+.gdbtkinit
+
+# makefile need
+*.d
+.objpools.txt
+
+Makefile
+/Makefile.main
+/Makefile.project
+/Makefile.config
+/Makefile.sub
+!daemons/Makefile
+!init/Makefile
+!loader/Makefile
+
+
+# use for debug
+*.img
+
+# other
+*.swp

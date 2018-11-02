@@ -1,0 +1,12 @@
+diff -Naur bash-4.4/support/config.sub "/run/media/administrator/U\346\267\261\345\272\246U\347\233\230/src/bash-4.4/support/config.sub"
+--- bash-4.4/support/config.sub	2013-12-17 23:49:47.000000000 +0800
++++ "/run/media/administrator/U\346\267\261\345\272\246U\347\233\230/src/bash-4.4/support/config.sub"	2018-02-03 20:09:04.035594000 +0800
+@@ -1376,7 +1376,7 @@
+ 	      | -os2* | -vos* | -palmos* | -uclinux* | -nucleus* \
+ 	      | -morphos* | -superux* | -rtmk* | -rtmk-nova* | -windiss* \
+ 	      | -powermax* | -dnix* | -nx6 | -nx7 | -sei* | -dragonfly* \
+-	      | -skyos* | -haiku* | -rdos* | -toppers* | -drops* | -es*)
++	      | -skyos* | -haiku* | -rdos* | -toppers* | -drops* | -es* | -multihard*)
+ 	# Remember, each alternative MUST END IN *, to match a version number.
+ 		;;
+ 	-qnx*)

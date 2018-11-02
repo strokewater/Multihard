@@ -1,0 +1,12 @@
+diff -Naur mpfr-4.0.0/config.sub "/run/media/administrator/U\346\267\261\345\272\246U\347\233\230/src/mpfr-4.0.0/config.sub"
+--- mpfr-4.0.0/config.sub	2017-12-25 19:24:29.000000000 +0800
++++ "/run/media/administrator/U\346\267\261\345\272\246U\347\233\230/src/mpfr-4.0.0/config.sub"	2018-02-04 14:34:39.068552000 +0800
+@@ -1416,7 +1416,7 @@
+ 	      | -morphos* | -superux* | -rtmk* | -rtmk-nova* | -windiss* \
+ 	      | -powermax* | -dnix* | -nx6 | -nx7 | -sei* | -dragonfly* \
+ 	      | -skyos* | -haiku* | -rdos* | -toppers* | -drops* | -es* \
+-	      | -onefs* | -tirtos* | -phoenix* | -fuchsia* | -redox*)
++	      | -onefs* | -tirtos* | -phoenix* | -fuchsia* | -redox* | -multihard*)
+ 	# Remember, each alternative MUST END IN *, to match a version number.
+ 		;;
+ 	-qnx*)

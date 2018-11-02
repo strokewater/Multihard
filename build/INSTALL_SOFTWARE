@@ -1,0 +1,55 @@
+begining:
+	bximage # generate disk image whose size larger than 1.5G
+	mount software.img /multihard
+then the follwing instruction, you need to mkdir build-* directory by yourself.
+
+1. in mixlibc:
+	make install-sysroot-headers
+2. in build-opt-binutils
+	../binutils-2.29/configure --target=i686-multihard --prefix=/multihard/opt/multihard --with-sysroot=/multihard/opt/multihard --disable-werror
+	make
+	make install
+
+	export PATH=/multihard/opt/multihard/bin:$PATH
+
+3. in build-opt-gcc
+	../gcc-7.2.0/configure --target=i686-multihard --prefix=/multihard/opt/multihard --with-sysroot=/multihard/opt/multihard --enable-languages=c,c++
+	make all-gcc all-target-libgcc
+	make install-gcc install-target-libgcc
+
+4. in mixlibc:
+	make
+	make install-opt-libc
+	make install-libc
+
+5. in build-opt-gcc
+	make all-target-libstdc++-v3
+	make install-target-libstdc++-v3
+
+6. in bash-4.4
+	./configure --target=i686-multihard --host=i686-multihard --prefix=/multihard
+	make CC_FOR_BUILD=gcc
+	make install
+	
+7. in build-gmp
+	../gmp-6.1.2/configure --target=i686-multihard --host=i686-multihard --prefix=/multihard/opt/multihard/i686-multihard
+	make
+	make install
+8. in build-mpfr
+	../mpfr-4.0.0/configure --target=i686-multihard --host=i686-multihard --prefix=/multihard/opt/multihard/i686-multihard
+	make
+	make install	
+9. in build-mpc
+	../mpc-1.1.0/configure --target=i686-multihard --host=i686-multihard --prefix=/multihard/opt/multihard/i686-multihard
+	make
+	make install
+10. in build-binutils
+	../binutils-2.29/configure --target=i686-multihard --host=i686-multihard --prefix=/multihard/usr
+	make
+	make install
+11. in build-gcc
+	../gcc-7.2.0/configure --target=i686-multihard --host=i686-multihard --prefix=/multihard/usr --enable-languages=c,c++
+	make all-gcc all-target-libgcc
+	make install-gcc install-target-libgcc
+	make all-target-libstdc++-v3
+	make install-target-libstdc++-v3

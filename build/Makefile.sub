@@ -1,0 +1,89 @@
+ALL_OBJS_REC_FILE=$(SRC_ROOT)/.objpools.txt
+
+include $(SRC_ROOT)/Makefile.config
+
+SUBDIRS=$(shell ls -l | grep ^d | awk '{print $$9}')
+PWD=$(shell pwd)
+DEPSDIR=.deps
+
+C_SOURCE=${wildcard *.c}
+C_OBJS=${patsubst %.c, %.o, $(C_SOURCE)}
+C_DEPS=$(C_SOURCE:.c=.d)
+C_DEPS:=$(addprefix $(DEPSDIR)/,$(C_DEPS))
+
+S_SOURCE=${wildcard *.S}
+S_OBJS=${patsubst %.S, %.o, $(S_SOURCE)}
+S_DEPS=$(S_SOURCE:.S=.d)
+S_DEPS:=$(addprefix $(DEPSDIR)/,$(S_DEPS))
+
+s_SOURCE=${wildcard *.s}
+s_OBJS=${patsubst %.s, %.o, $(s_SOURCE)}
+
+ASM_SOURCE=${wildcard *.asm}
+ASM_OBJS=${patsubst %.asm, %.o, $(ASM_SOURCE)}
+ASM_DEPS=$(ASM_SOURCE:.asm=.d)
+ASM_DEPS:=$(addprefix $(DEPSDIR)/,$(ASM_DEPS))
+
+
+OBJS = $(C_OBJS)
+OBJS += $(S_OBJS)
+OBJS += $(s_OBJS)
+OBJS += $(ASM_OBJS)
+
+.PHONY: all
+all: subdir_objs $(OBJS)
+	@for i in $(OBJS) ; do \
+		echo "kernel: $(PWD)/$$i" >>$(ALL_OBJS_REC_FILE) ; \
+	done
+.PHONY: subdir_objs
+subdir_objs:
+	@for i in $(SUBDIRS) ; do \
+		if [ -f $$i/Makefile ] && [ ! -f $$i/.no_makefile ] ; then \
+			(make -C $$i) || exit "$$?";\
+		fi \
+	done
+.PHONY: clean
+clean:
+	@for i in $(SUBDIRS) ; do \
+		if [ -f $$i/Makefile ] && [ ! -f $$i/.no_makefile ] ; then \
+			(make -C $$i clean) || exit "$$?";\
+		fi \
+	done
+	rm -rf $(OBJS) $(DEPSDIR)
+
+%.o: %.asm
+	$(ASM) $(ASMFLAGS) $< -o $@
+
+ifneq ($(strip $(C_DEPS)),)
+-include $(C_DEPS)
+endif
+
+ifneq ($(strip $(S_DEPS)),)
+-include $(S_DEPS)
+endif
+
+ifneq ($(strip $(ASM_DEPS)),)
+-include $(ASM_DEPS)
+endif
+
+$(DEPSDIR)/%.d:%.c
+	@set -e;\
+	mkdir -p $(DEPSDIR) ;\
+	rm -rf $@.tmp;\
+	$(CC) -E -MM $(CFLAGS) $(filter %.c,$^) > $@.tmp || exit "$$?" ;\
+	sed 's,\(.*\)\.o[:]*,\1.o:,g' <$@.tmp >$@;\
+	rm -rf $@.tmp
+$(DEPSDIR)/%.d:%.S
+	@set -e;\
+	mkdir -p $(DEPSDIR) ;\
+	rm -rf $@.tmp;\
+	$(CC) -E -M $(CFLAGS) $(filter %.S,$^) > $@.tmp || exit "$$?" ;\
+	sed 's,\(.*\)\.o[:]*,\1.o:,g' <$@.tmp >$@;\
+	rm -rf $@.tmp
+$(DEPSDIR)/%.d:%.asm
+	@set -e;\
+	mkdir -p $(DEPSDIR) ;\
+	rm -rf $@.tmp;\
+	$(ASM) -M $(ASMFLAGS) $(filter %.asm,$^) -o $(patsubst %.asm, %.o, $^) >$@.tmp || exit "$$?" ;\
+	sed 's,\(.*\)\.o[:]*,\1.o:,g' <$@.tmp >$@;\
+	rm -rf $@.tmp

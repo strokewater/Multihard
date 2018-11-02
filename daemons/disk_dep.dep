@@ -1,0 +1,13 @@
+OBJECT Current
+OBJECT Schedule
+OBJECT AsyncBuffers
+OBJECT WriteBufferToDisk
+OBJECT PutBlk
+OBJECT HashTable
+OBJECT SyncRequestDevsTop
+OBJECT SyncRequestDevs
+OBJECT printk
+OBJECT SyncMInodes
+OBJECT debug_printk
+SYM DEP_VERSION 1
+SYM REQ_PRIO	0

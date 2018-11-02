@@ -1,0 +1,6 @@
+ata0-master: type=disk, path="rootfs.img", mode=flat
+boot:disk
+log: bochs.out
+# debug: action=report
+megs:64
+port_e9_hack: enabled=1

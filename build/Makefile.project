@@ -1,0 +1,7 @@
+include .objpools.txt
+include Makefile.config
+
+LDFLAGS = -Ttext=0xc0100000  -m elf_i386
+kernel:
+	@echo "Linking kernel ..."
+	@$(LD) $(LDFLAGS) $^ -o $@
